@@ -1,5 +1,6 @@
 from typing import Any
 import serial
+from serial.tools import list_ports
 
 import time
 
@@ -44,7 +45,19 @@ class OrderSender:
             time.sleep(frameLength - ((time.time() - starttime) % frameLength))
 
 
-serialPort = serial.Serial("/dev/ttyACM0", 115200)
+def choosePort():
+    print("Here are all available ports. Please enter the index of the port you'd like to open\n")
+    allPorts = list_ports.comports(include_links=False)
+    for idx,port in enumerate(allPorts):
+        print(f"{idx} : {port.name}")
+    userChoice = input()
+    if userChoice.isnumeric():
+        return allPorts[userChoice].name
+    else:
+        return userChoice
+
+
+serialPort = serial.Serial(choosePort(), 115200)
 
 orderSender = OrderSender(serialPort)
 
