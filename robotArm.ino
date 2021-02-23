@@ -19,7 +19,6 @@ void loop()
 {
     if (Serial.available() > 0)
     {
-        Serial.println("BUSY");
         String m1S(Serial.readStringUntil(';'));
         String m2S(Serial.readStringUntil(';'));
         String m3S(Serial.readStringUntil(';'));
