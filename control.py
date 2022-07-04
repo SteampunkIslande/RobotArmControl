@@ -32,6 +32,11 @@ class OrderSender:
         self._baseOffset = value
 
     def sendCSV(self, file, frameLength: float = 0.1):
+        """
+        Sends one line of opened file file, every frameLength seconds.
+        Each line of the file must contain integers inside a valid servo angle range
+        These integers must be separated by a semi-colon (separator argument is for another version)
+        """
         starttime = time.time()
         for idx, line in enumerate(file):
             for servoIdx, token in enumerate(line.split(";")):
